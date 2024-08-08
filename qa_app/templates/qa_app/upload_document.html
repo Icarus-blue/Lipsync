@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+
+{% block title %}Upload Q&A Document{% endblock %}
+
+{% block content %}
+<div class="upload-container">
+    <h1>Upload Q&A Document</h1>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="drop-area">
+            <p style='margin-bottom:30px'>Drag and drop a CSV file here or click to select</p>
+            <input type="file" id="fileElem" name="file" accept=".csv" onchange="handleFiles(this.files)">
+            <label class="button" for="fileElem">Select a file</label>
+        </div>
+        <div id="file-info"></div>
+        <button type="submit" id="submit-btn" disabled>Upload</button>
+    </form>
+    <div id="message-container"></div>
+</div>
+<style>
+    .upload-container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        margin:150px auto;
+        color:black
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    #drop-area {
+        border: 2px dashed #ccc;
+        border-radius: 20px;
+        padding: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #drop-area.highlight {
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    #fileElem {
+        display: none;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    #submit-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #submit-btn:hover {
+        background-color: #007B9A;
+    }
+
+    #submit-btn:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    #file-info {
+        margin-top: 20px;
+        font-style: italic;
+    }
+
+    #message-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .message {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        color: white;
+        opacity: 0.9;
+    }
+
+    .message-success {
+        background-color: #28a745;
+    }
+
+    .message-error {
+        background-color: #dc3545;
+    }
+</style>
+
+<script>
+    let dropArea = document.getElementById('drop-area');
+    let fileInput = document.getElementById('fileElem');
+    let submitBtn = document.getElementById('submit-btn');
+    let fileInfo = document.getElementById('file-info');
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        dropArea.classList.add('highlight');
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight');
+    }
+
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        handleFiles(files);
+    }
+
+    function handleFiles(files) {
+        if (files[0].type === 'text/csv') {
+            fileInfo.textContent = `Selected file: ${files[0].name}`;
+            submitBtn.disabled = false;
+        } else {
+            fileInfo.textContent = 'Please select a CSV file.';
+            submitBtn.disabled = true;
+        }
+    }
+
+    function showMessage(message, type) {
+        const messageContainer = document.getElementById('message-container');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', `message-${type}`);
+        messageElement.textContent = message;
+        messageContainer.appendChild(messageElement);
+
+        // Remove the message after 5 seconds
+        setTimeout(() => {
+            messageElement.remove();
+        }, 5000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        {% if messages %}
+            {% for message in messages %}
+                showMessage("{{ message }}", "{{ message.tags }}");
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    How to Use This App
+{% endblock %}
+
+{% block content %}
+<style>
+    .how-to-use {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+    }
+    .how-to-use h1 {
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+    .how-to-use h2 {
+        color: #2980b9;
+        margin-top: 30px;
+    }
+    .step {
+        background-color: #f9f9f9;
+        border-left: 4px solid #3498db;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 0 5px 5px 0;
+    }
+    .step-number {
+        display: inline-block;
+        background-color: #3498db;
+        color: white;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .tip {
+        background-color: #e8f6ff;
+        border: 1px solid #b8e0ff;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="how-to-use">
+    <h1 style='text-align:center'>How to Use This App</h1>    
+
+    <div class="step">
+        <h2><span class="step-number">1</span>Upload a Document</h2>
+        <p>Navigate to the "Upload" section. Click "Choose File", select your document (CSV format), and click "Upload".</p>
+    </div>
+
+    <div class="step">
+        <h2><span class="step-number">2</span>View and Manage Q&A Pairs</h2>
+        <p>In the "Q&A" section, you can view, add, edit, or delete Q&A pairs as needed.</p>
+    </div>
+
+    <div class="step">
+        <h2><span class="step-number">3</span>Train the Model</h2>
+        <p>Go to the "Train Model" section and click "Train" to start the training process with your Q&A pairs.</p>
+    </div>
+
+    <div class="step">
+        <h2><span class="step-number">4</span>Ask Questions</h2>
+        <p>In the "Ask" section, type your question and click "Submit" to get an answer from the trained model.</p>
+    </div>
+
+    <div class="tip">
+        <h2>Need Help?</h2>
+        <p>If you have any questions or encounter issues, please visit our "Contact Us" page for support.</p>
+    </div>
+</div>
+{% endblock %}

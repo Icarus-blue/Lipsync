@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    margin: 0; 
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: whitesmoke;
+}
+
+h1,
+p {
+    text-align: left;
+}
+
+nav {
+    padding: 10px;
+    background: linear-gradient(135deg, #263ea8 0%, #764ba2 100%);
+    color: white;
+    font-size: 20px;
+}
+
+.banner{
+    display: block;
+    width: 100%;
+    max-width: 700px;
+}
+
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    opacity: .85;
+}
