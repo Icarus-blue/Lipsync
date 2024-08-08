@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-OPENAI_API_KEY = 'sk-proj-S3GUpN4PsYxJiyGw0jCaT3BlbkFJLnHlzRg7vlxa6Blkh5Mu'
+OPENAI_API_KEY = ''
 PINECONE_API_KEY = '0670c51c-ce58-427d-920c-97b5a9e6fe68'
 PINECONE_ENVIRONMENT = 'us-east-1'
 # Application definition
